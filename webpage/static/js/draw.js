@@ -260,7 +260,8 @@ DRAW.setCustom = function(){
 
 DRAW.setLog = function(){
     var logDiv = $('#log');
-    DRAW.logData.forEach(line => {
+    for (var i = DRAW.logData.length-1; i >= 0; i++){
+        line = DRAW.logData[i];
         var logItem = $('<div class="log_item">' + 
             '<i>' + 
             line[0].toLocaleString('chinese',{hour12:false}) + ' ' + line[1] + 
@@ -270,5 +271,5 @@ DRAW.setLog = function(){
             '</div>');
 
         logDiv.append(logItem);
-    });
+    }
 }
