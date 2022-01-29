@@ -76,7 +76,7 @@ def Sleep(ms):
 def N_(v, n):
     return round(v, n)
 
-def init():
+def _init():
     now = int(time.time()*1000)
     nowstr = str(now)
 
@@ -96,4 +96,4 @@ def init():
     INFO["log"] = 'log/' + nowstr + '.log'
     WriteINFO()
 
-init()
+_init()
