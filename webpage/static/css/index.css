@@ -1,0 +1,91 @@
+@charset "utf-8";
+
+/*总体布局*/
+.info{
+    
+    width:100%;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+    color: white;
+    background-color: black;
+}
+
+.info_startTime{
+    
+    color: white;
+}
+
+.info_fileName{
+    
+    color: white;
+}
+
+.info_logSize{
+    
+    color: white;
+}
+
+.allValue{
+    
+    width:100%;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+    color: white;
+    background-color: black;
+}
+
+.allvalue_count{
+    
+    color: white;
+}
+
+.allvalue_curve{
+    
+    width:100%;
+    height:500px;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+}
+
+.custom{
+    
+    width:100%;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+    color: white;
+    background-color: black;
+}
+
+.custom_curve{
+    
+    width:100%;
+    height:500px;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+}
+
+.log{
+    
+    width:100%;
+    top:10px;
+    left:10px;
+    right:10px;
+    margin: 0% 0 0 0%;
+    color: white;
+    background-color: black;
+}
+
+.log_item{
+    
+    color: white;
+}

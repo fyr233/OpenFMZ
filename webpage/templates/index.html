@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="../static/js/echarts.js"></script>
+    <script src="../static/js/chalk.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+    <!--<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">-->
+    <title>OpenFMZ</title>
+</head>
+
+<body bgcolor="#1B1B1B">
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+
+    <!-- 实盘信息 -->
+    <div class="info" id="info">
+        <b>实盘信息</b>
+        <!-- 开始时间 -->
+        <div class="info_startTime" id="info_startTime">
+            开始于 1970-01-01 00:00
+        </div>
+        <!-- 文件名 -->
+        <div class="info_fileName" id="info_fileName">
+            文件名 BN_ws_网格/main.py
+        </div>
+        <!-- 日志文件大小 -->
+        <div class="info_logSize" id="info_logSize">
+            重启以来的日志大小 1024KB
+        </div>
+    </div>
+
+    <br>
+
+    <!-- 估值 -->
+    <div class="allValue" id="allValue">
+        <b>估值</b>
+        <!-- 记录数，页数 
+        <div class="allvalue_count" id="allvalue_count">
+            100条记录，1页
+        -->
+        </div>
+        <!-- 估值曲线 -->
+        <div class="allvalue_curve" id="allvalue_curve"></div>
+    </div>
+
+    <br>
+
+    <!-- 策略图表 -->
+    <div class="custom" id="custom">
+        <b>策略图表</b>
+        <!-- 多个自定义曲线 -->
+    </div>
+
+    <br>
+
+    <!-- 日志 -->
+    <div class="log" id="log">
+        <b>日志</b>
+        <!-- 每一条日志：时间、类型、文本 -->
+    </div>
+
+    <script src="../static/js/draw.js"></script>
+</body>
+
+</html>
