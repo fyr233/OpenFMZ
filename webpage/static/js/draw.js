@@ -260,7 +260,7 @@ DRAW.setCustom = function(){
 
 DRAW.setLog = function(){
     var logDiv = $('#log');
-    for (var i = DRAW.logData.length-1; i >= 0; i++){
+    for (var i = DRAW.logData.length-1; i >= 0; i--){
         line = DRAW.logData[i];
         var logItem = $('<div class="log_item">' + 
             '<i>' + 
