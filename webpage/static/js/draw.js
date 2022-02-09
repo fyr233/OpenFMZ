@@ -42,7 +42,9 @@ DRAW.Chart_allvalue_curve.setOption(option = {
     },
     yAxis: {
       type: 'value',
-      boundaryGap: [0, '100%']
+      boundaryGap: [0, '100%'],
+      min: 'dataMin',
+      max: 'dataMax'
     },
     dataZoom: [
       {
@@ -159,7 +161,7 @@ DRAW.getData = function(){
 }
 
 DRAW.setInfo = function(){
-    $('#info_startTime').text('开始于: ' + Date(DRAW.info.start).toLocaleString('chinese',{hour12:false}));
+    $('#info_startTime').text('开始于: ' + new Date(DRAW.info.start).toLocaleString('chinese',{hour12:false}));
     $('#info_fileName').text(DRAW.info.file);
     $('#info_logSize').text('日志大小: ' + Math.round(100 * DRAW.info.logSize / 1024) / 100 + 'KB');
 }
@@ -192,12 +194,13 @@ DRAW.setCustom = function(){
             var start = 0;
             for (var j = 0; j < group.length; j++){
                 if (group[j] != undefined){
-                    chartSeries.push({
-                        name: cfg.series[j - start].name,
-                        type: 'line',
-                        smooth: false,
-                        data: group[j]
-                    });
+                    var s = cfg.series[j - start];
+                    if (s.type == undefined){
+                        s.type = 'line';
+                    }
+                    s.smooth = false;
+                    s.data = group[j];
+                    chartSeries.push(s);
                 }
                 else{
                     start = j + 1;

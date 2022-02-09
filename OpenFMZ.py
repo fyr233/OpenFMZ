@@ -21,17 +21,23 @@ class Chart:
     def __init__(self, cfglist):
         global INFO
         self.cfgs = cfglist
+        self.writebuffer = []
+
         INFO["custom"]["cfgs"] = cfglist
         WriteINFO()
 
     def add(self, seriesId, d):
         groupId = self.seriesId2groupId(seriesId)
-        with open(OUT_DATA_ROOT + INFO["custom"]["file"], 'a') as f:
-            s = str(groupId) + ' ' +\
-                str(seriesId) + ' ' +\
-                str(d[0]) + ' ' +\
-                str(d[1]) + '\n'
-            f.write(s)
+        s = str(groupId) + ' ' +\
+            str(seriesId) + ' ' +\
+            str(d[0]) + ' ' +\
+            str(d[1]) + '\n'
+        self.writebuffer.append(s)
+
+        if len(self.writebuffer) > 10:
+            with open(OUT_DATA_ROOT + INFO["custom"]["file"], 'a') as f:
+                f.write(''.join(self.writebuffer))
+            self.writebuffer.clear()
 
     def reset(self):
         global INFO
