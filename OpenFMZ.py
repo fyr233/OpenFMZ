@@ -3,7 +3,7 @@ import os
 import json
 import sys
 
-OUT_DATA_ROOT = './webpage/static/data/'
+OUT_DATA_ROOT = './OpenFMZ/webpage/static/data/'
 OUT_DATA_INFO = 'info/latest.info'
 INFO = {
     "start": 0,
@@ -26,7 +26,7 @@ class Chart:
         INFO["custom"]["cfgs"] = cfglist
         WriteINFO()
 
-    def add(self, seriesId, d):
+    def add(self, seriesId, d, usebuffer=True):
         groupId = self.seriesId2groupId(seriesId)
         s = str(groupId) + ' ' +\
             str(seriesId) + ' ' +\
@@ -34,7 +34,7 @@ class Chart:
             str(d[1]) + '\n'
         self.writebuffer.append(s)
 
-        if len(self.writebuffer) > 10:
+        if len(self.writebuffer) > 10 or not usebuffer:
             with open(OUT_DATA_ROOT + INFO["custom"]["file"], 'a') as f:
                 f.write(''.join(self.writebuffer))
             self.writebuffer.clear()
