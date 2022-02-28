@@ -193,11 +193,13 @@ DRAW.setCustom = function(){
             var chartDiv = $('<div class="custom_curve"></div>');
             $('#custom').append(chartDiv);
             var customChart = echarts.init(chartDiv[0], 'chalk');
+            DRAW.customCharts.push(customChart);
             customChart.showLoading();
 
             var chartSeries = [];
             var cfg = DRAW.info.custom.cfgs[i];
             var start = 0;
+            for (start = 0; group[start] == undefined; start++){}
             for (var j = 0; j < group.length; j++){
                 if (group[j] != undefined){
                     var s = cfg.series[j - start];
@@ -207,9 +209,6 @@ DRAW.setCustom = function(){
                     s.smooth = false;
                     s.data = group[j];
                     chartSeries.push(s);
-                }
-                else{
-                    start = j + 1;
                 }
             }
 
