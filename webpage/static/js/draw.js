@@ -114,6 +114,12 @@ DRAW.getData = function(){
     DRAW.customXhr = $.get('../static/data/' + DRAW.info.custom.file + '?' + Math.random()).done(
         function(data){
             lines = data.split('\n');
+            //限制数据量
+            let maxlines = 100000;
+            if (lines.length > maxlines)
+            {
+                lines.splice(0, lines.length - maxlines);
+            }
             lines.forEach(line => {
                 words = line.split(' ');
                 if (words.length > 3){
