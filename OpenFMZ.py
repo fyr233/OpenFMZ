@@ -22,6 +22,7 @@ class Chart:
         global INFO
         self.cfgs = cfglist
         self.writebuffer = []
+        self.buffersize = 10
 
         INFO["custom"]["cfgs"] = cfglist
         WriteINFO()
@@ -34,7 +35,7 @@ class Chart:
             str(d[1]) + '\n'
         self.writebuffer.append(s)
 
-        if len(self.writebuffer) > 10 or not usebuffer:
+        if len(self.writebuffer) > self.buffersize or not usebuffer:
             with open(OUT_DATA_ROOT + INFO["custom"]["file"], 'a') as f:
                 f.write(''.join(self.writebuffer))
             self.writebuffer.clear()
