@@ -23,6 +23,8 @@ class Chart:
         self.cfgs = cfglist
         self.writebuffer = []
         self.buffersize = 10
+        self.filelines = 0
+        self.filelineslimit = 500000
 
         INFO["custom"]["cfgs"] = cfglist
         WriteINFO()
@@ -38,7 +40,13 @@ class Chart:
         if len(self.writebuffer) > self.buffersize or not usebuffer:
             with open(OUT_DATA_ROOT + INFO["custom"]["file"], 'a') as f:
                 f.write(''.join(self.writebuffer))
+            self.filelines += len(self.writebuffer)
             self.writebuffer.clear()
+
+        #如果文件过大，新建文件
+        if self.filelines > self.filelineslimit:
+            self.reset()
+            self.filelines = 0
 
     def reset(self):
         global INFO
