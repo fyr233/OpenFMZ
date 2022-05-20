@@ -64,12 +64,17 @@ class Chart:
                     r += 1
         return -1
 
+_log_buffer = []
 def Log(*arg):
     now = int(time.time()*1000)
-    with open(OUT_DATA_ROOT + INFO["log"], 'a', encoding='utf8') as f:
-        s = str(now) + ' 信息 ' +\
+    s = str(now) + ' 信息 ' +\
             ' '.join([str(i) for i in arg]) + '\n'
-        f.write(s)
+    _log_buffer.append(s)
+
+    if len(_log_buffer) > 10:
+        with open(OUT_DATA_ROOT + INFO["log"], 'a', encoding='utf8') as f:
+            f.write(''.join(_log_buffer))
+        _log_buffer.clear()
 
 def LogProfit(p):
     now = int(time.time()*1000)
@@ -77,7 +82,7 @@ def LogProfit(p):
         f.write(str(now) + ' ' + str(p) + '\n')
     
     with open(OUT_DATA_ROOT + INFO["log"], 'a', encoding='utf8') as f:
-        s = str(now) + ' 收益 ' +\
+        s = str(now) + ' 估值 ' +\
             str(p) + '\n'
         f.write(s)
     

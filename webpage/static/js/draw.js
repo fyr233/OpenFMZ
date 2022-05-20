@@ -9,6 +9,8 @@ DRAW.customData = [];
 //log数据
 DRAW.logData = [];
 
+const url_params = new URLSearchParams(window.location.search);
+
 //估值曲线
 DRAW.Chart_allvalue_curve = echarts.init($('#allvalue_curve')[0], 'chalk');
 DRAW.Chart_allvalue_curve.showLoading();
@@ -71,7 +73,12 @@ DRAW.Chart_allvalue_curve.setOption(option = {
 });
 
 //获取并解析info文件
-DRAW.infoXhr = $.get('../static/data/info/latest.info' + '?' + Math.random()).done(
+var infofile = 'latest.info';
+if (url_params.has('info')){
+    infofile = url_params.get('info') + '.info';
+}
+
+DRAW.infoXhr = $.get('../static/data/info/' + infofile + '?' + Math.random()).done(
     function(data){
         DRAW.info = JSON.parse(data);
         DRAW.setInfo();
@@ -115,7 +122,7 @@ DRAW.getData = function(){
         function(data){
             lines = data.split('\n');
             //限制数据量
-            let maxlines = 100000;
+            let maxlines = 150000;
             if (lines.length > maxlines)
             {
                 lines.splice(0, lines.length - maxlines);
@@ -170,6 +177,8 @@ DRAW.setInfo = function(){
     $('#info_startTime').text('开始于: ' + new Date(DRAW.info.start).toLocaleString('chinese',{hour12:false}));
     $('#info_fileName').text(DRAW.info.file);
     $('#info_logSize').text('日志大小: ' + Math.round(100 * DRAW.info.logSize / 1024) / 100 + 'KB');
+    $('#info_last').attr("href", "/?info=" + DRAW.info.start);
+    $('#info_last').text("/?info=" + DRAW.info.start)
 }
 
 //画多个自定义曲线
@@ -240,14 +249,8 @@ DRAW.setCustom = function(){
                     saveAsImage: {}
                   }
                 },
-                xAxis: {
-                  type: 'time',
-                  boundaryGap: false,
-                },
-                yAxis: {
-                  type: 'value',
-                  boundaryGap: [0, '100%'],
-                },
+                xAxis: cfg.xAxis,
+                yAxis: cfg.yAxis,
                 dataZoom: [
                   {
                     type: 'inside',
@@ -271,7 +274,7 @@ DRAW.setLog = function(){
     for (var i = DRAW.logData.length-1; i >= 0; i--){
         line = DRAW.logData[i];
         var logItem = $('<div class="log_item">' + 
-            '<i>' + 
+            '<i class="log_time">' + 
             line[0].toLocaleString('chinese',{hour12:false}) + ' ' + line[1] + 
             '</i>' +
             '<br>' + 

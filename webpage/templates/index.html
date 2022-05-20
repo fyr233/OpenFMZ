@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- 引入 ECharts 文件 -->
-    <script src="../static/js/echarts.js"></script>
+    <!--script src="../static/js/echarts.js"></script-->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
     <script src="../static/js/chalk.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/index.css">
     <!--<link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">-->
@@ -30,6 +31,10 @@
         <div class="info_logSize" id="info_logSize">
             重启以来的日志大小 1024KB
         </div>
+        <!-- 上一次info -->
+        <a class="info_last" id="info_last">
+            /?info=000.info
+        </a>
     </div>
 
     <br>
