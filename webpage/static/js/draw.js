@@ -8,6 +8,8 @@ DRAW.valueData = [];
 DRAW.customData = [];
 //log数据
 DRAW.logData = [];
+//log已加载到的位置
+DRAW.logLoadId = 0;
 
 const url_params = new URLSearchParams(window.location.search);
 
@@ -91,7 +93,7 @@ DRAW.infoXhr = $.get('../static/data/info/' + infofile + '?' + Math.random()).do
 );
 
 DRAW.getData = function(){
-    //根据解析的info，获取其它三个文件
+    //根据解析的info，获取value文件
     DRAW.valueXhr = $.get('../static/data/' + DRAW.info.value + '?' + Math.random()).done(
         function(data){
             lines = data.split('\n');
@@ -117,7 +119,7 @@ DRAW.getData = function(){
         }
     );
 
-    //根据解析的info，获取其它三个文件
+    //根据解析的info，获取custom文件
     DRAW.customXhr = $.get('../static/data/' + DRAW.info.custom.file + '?' + Math.random()).done(
         function(data){
             lines = data.split('\n');
@@ -148,7 +150,7 @@ DRAW.getData = function(){
         }
     );
 
-    //根据解析的info，获取其它三个文件
+    //根据解析的info，获取log文件
     DRAW.logXhr = $.get('../static/data/' + DRAW.info.log + '?' + Math.random()).done(
         function(data){
             lines = data.split('\n');
@@ -164,7 +166,7 @@ DRAW.getData = function(){
 
             DRAW.info.logSize += parseInt(DRAW.logXhr.getResponseHeader('content-length'));
             DRAW.setInfo();
-            DRAW.setLog();
+            //DRAW.setLog();
         }
     ).fail(
         function(xhr, status){
@@ -269,10 +271,10 @@ DRAW.setCustom = function(){
     })
 }
 
-DRAW.setLog = function(){
+DRAW.setLog = function(start, end){
     var logDiv = $('#log');
-    for (var i = DRAW.logData.length-1; i >= 0; i--){
-        line = DRAW.logData[i];
+    for (let i = DRAW.logData.length-1 - start; i >= DRAW.logData.length-1 - end; i--){
+        let line = DRAW.logData[i];
         var logItem = $('<div class="log_item">' + 
             '<i class="log_time">' + 
             line[0].toLocaleString('chinese',{hour12:false}) + ' ' + line[1] + 
@@ -283,4 +285,16 @@ DRAW.setLog = function(){
 
         logDiv.append(logItem);
     }
+    DRAW.logLoadId = end;
 }
+
+//当页面滚动至底部时加载日志
+$(window).scroll(function(){
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+
+        if(scrollTop + windowHeight >= scrollHeight - 10){
+            DRAW.setLog(DRAW.logLoadId, DRAW.logLoadId + 20);
+        }
+    });
