@@ -272,6 +272,10 @@ DRAW.setCustom = function(){
 }
 
 DRAW.setLog = function(start, end){
+    if (start > DRAW.logData.length-1)
+        return;
+    if (end > DRAW.logData.length-1)
+        end = DRAW.logData.length-1;
     var logDiv = $('#log');
     for (let i = DRAW.logData.length-1 - start; i >= DRAW.logData.length-1 - end; i--){
         let line = DRAW.logData[i];
@@ -295,6 +299,6 @@ $(window).scroll(function(){
         var windowHeight = $(this).height();
 
         if(scrollTop + windowHeight >= scrollHeight - 10){
-            DRAW.setLog(DRAW.logLoadId, DRAW.logLoadId + 20);
+            DRAW.setLog(DRAW.logLoadId + 1, DRAW.logLoadId + 20);
         }
     });
