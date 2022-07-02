@@ -179,6 +179,15 @@ DRAW.setInfo = function(){
     $('#info_startTime').text('开始于: ' + new Date(DRAW.info.start).toLocaleString('chinese',{hour12:false}));
     $('#info_fileName').text(DRAW.info.file);
     $('#info_logSize').text('日志大小: ' + Math.round(100 * DRAW.info.logSize / 1024) / 100 + 'KB');
+
+    if (DRAW.valueData && DRAW.valueData.length > 1){
+        let t1 = DRAW.valueData[0][0], v1 = DRAW.valueData[0][1];
+        let t2 = DRAW.valueData[DRAW.valueData.length-1][0], v2 = DRAW.valueData[DRAW.valueData.length-1][1];
+        let APY =  (v2 / v1 - 1.0) / ((t2 - t1)/1000/3600/24) * 365;
+        $('#info_APY').text('线性年化: ' + APY);
+    }
+
+
     $('#info_last').attr("href", "/?info=" + DRAW.info.start);
     $('#info_last').text("/?info=" + DRAW.info.start)
 }
