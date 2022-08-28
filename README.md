@@ -1,6 +1,6 @@
 # OpenFMZ
 
-依据FMZ平台（fmz.com）接口打造的简易实盘监测系统，以网页形式查看实盘状态。
+依据FMZ平台（fmz.com）Python接口打造的简易实盘监测系统，以网页形式查看实盘状态。
 - 使用Log记录日志
 - 使用LogProfit记录收益/估值
 - 使用Chart绘制自定义曲线
